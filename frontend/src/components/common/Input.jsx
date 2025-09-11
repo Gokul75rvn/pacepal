@@ -1,6 +1,7 @@
-import React from 'react'
+// src/components/common/Input.jsx
+import React, { forwardRef } from 'react'
 
-const Input = ({ 
+const Input = forwardRef(({ 
   label, 
   type = 'text', 
   placeholder = '', 
@@ -9,7 +10,7 @@ const Input = ({
   error = '', 
   className = '',
   ...props 
-}) => {
+}, ref) => {
   return (
     <div className={`mb-4 ${className}`}>
       {label && (
@@ -18,6 +19,7 @@ const Input = ({
         </label>
       )}
       <input
+        ref={ref}
         type={type}
         placeholder={placeholder}
         value={value}
@@ -32,6 +34,8 @@ const Input = ({
       )}
     </div>
   )
-}
+})
+
+Input.displayName = 'Input'
 
 export default Input

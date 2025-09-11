@@ -29,11 +29,20 @@ const LoginForm = () => {
         </div>
       )}
       
+      <div className="mb-6 p-4 bg-blue-50 rounded-md">
+        <p className="text-sm text-blue-800">
+          <strong>Test Credentials:</strong><br />
+          Email: test@example.com<br />
+          Password: password
+        </p>
+      </div>
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Email"
           type="email"
           placeholder="Enter your email"
+          defaultValue="test@example.com"
           {...register('email', { 
             required: 'Email is required',
             pattern: {
@@ -48,6 +57,7 @@ const LoginForm = () => {
           label="Password"
           type="password"
           placeholder="Enter your password"
+          defaultValue="password"
           {...register('password', { 
             required: 'Password is required',
             minLength: {

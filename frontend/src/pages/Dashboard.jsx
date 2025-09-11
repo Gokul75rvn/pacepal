@@ -1,14 +1,16 @@
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import { useHabits } from '../hooks/useHabits'
-import { FaPlus, FaChartLine, FaFire, FaCalendarCheck } from 'react-icons/fa'
+import { FaPlus, FaChartLine, FaFire, FaCalendarCheck, FaUser, FaCheck } from 'react-icons/fa'
 import HabitCard from '../components/features/HabitCard'
 import StatsCard from '../components/features/StatsCard'
 import ProgressChart from '../components/features/ProgressChart'
 import Button from '../components/common/Button'
 
 const Dashboard = () => {
-  const { habits, loading } = useHabits()
+  const { user } = useAuth()
+  const { habits, loading, error } = useHabits()
+  const [refreshKey, setRefreshKey] = useState(0)
   
   // Mock data for the chart
   const chartData = [
@@ -20,6 +22,10 @@ const Dashboard = () => {
     { name: 'Sat', completed: 2, missed: 2 },
     { name: 'Sun', completed: 4, missed: 0 },
   ]
+
+  const handleHabitUpdate = () => {
+    setRefreshKey(prev => prev + 1)
+  }
 
   const completedToday = habits.filter(h => h.completedToday).length
   const totalStreak = habits.reduce((sum, habit) => sum + habit.streak, 0)
@@ -36,11 +42,20 @@ const Dashboard = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-dark">Dashboard</h1>
+        <div>
+          <h1 className="text-3xl font-bold text-dark">Dashboard</h1>
+          <p className="text-gray-600">Welcome back, {user?.name}!</p>
+        </div>
         <Button variant="primary">
           <FaPlus className="mr-2" /> Add Habit
         </Button>
       </div>
+      
+      {error && (
+        <div className="mb-4 p-4 bg-yellow-50 text-yellow-800 rounded-md">
+          {error}
+        </div>
+      )}
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <StatsCard 
@@ -93,7 +108,11 @@ const Dashboard = () => {
       <h2 className="text-2xl font-semibold text-dark mb-4">My Habits</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {habits.map(habit => (
-          <HabitCard key={habit._id} habit={habit} />
+          <HabitCard 
+            key={habit._id} 
+            habit={habit} 
+            onHabitUpdate={handleHabitUpdate}
+          />
         ))}
       </div>
     </div>

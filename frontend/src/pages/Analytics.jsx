@@ -5,39 +5,9 @@ import { FaChartLine, FaCalendarAlt, FaFire, FaTrophy } from 'react-icons/fa'
 import StatsCard from '../components/features/StatsCard'
 
 const Analytics = () => {
-  const { weeklyData, monthlyData, loading } = useAnalytics()
-  
-  // Mock data for demonstration
-  const weeklyCompletionData = [
-    { name: 'Mon', completed: 3, missed: 1 },
-    { name: 'Tue', completed: 4, missed: 0 },
-    { name: 'Wed', completed: 2, missed: 2 },
-    { name: 'Thu', completed: 5, missed: 0 },
-    { name: 'Fri', completed: 3, missed: 1 },
-    { name: 'Sat', completed: 2, missed: 2 },
-    { name: 'Sun', completed: 4, missed: 0 },
-  ]
-  
-  const monthlyTrendData = [
-    { name: 'Week 1', completion: 75 },
-    { name: 'Week 2', completion: 82 },
-    { name: 'Week 3', completion: 68 },
-    { name: 'Week 4', completion: 90 },
-  ]
-  
-  const categoryData = [
-    { name: 'Health', value: 35 },
-    { name: 'Productivity', value: 25 },
-    { name: 'Learning', value: 20 },
-    { name: 'Mindfulness', value: 20 },
-  ]
+  const { weeklyData, monthlyData, habitStats, categoryData, loading } = useAnalytics()
   
   const COLORS = ['#4F46E5', '#10B981', '#F59E0B', '#EF4444']
-  
-  const bestStreak = 21
-  const currentStreak = 7
-  const completionRate = 78
-  const totalHabits = 12
 
   if (loading) {
     return (
@@ -54,25 +24,25 @@ const Analytics = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard 
           title="Current Streak" 
-          value={`${currentStreak} days`} 
+          value={`${habitStats.currentStreak || 0} days`} 
           icon={<FaFire />} 
           color="accent" 
         />
         <StatsCard 
           title="Best Streak" 
-          value={`${bestStreak} days`} 
+          value={`${habitStats.bestStreak || 0} days`} 
           icon={<FaTrophy />} 
           color="primary" 
         />
         <StatsCard 
           title="Completion Rate" 
-          value={`${completionRate}%`} 
+          value={`${habitStats.completionRate || 0}%`} 
           icon={<FaChartLine />} 
           color="secondary" 
         />
         <StatsCard 
           title="Total Habits" 
-          value={totalHabits} 
+          value={habitStats.totalHabits || 0} 
           icon={<FaCalendarAlt />} 
           color="light" 
         />
@@ -83,7 +53,7 @@ const Analytics = () => {
           <h3 className="text-lg font-semibold text-dark mb-4">Weekly Completion</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={weeklyCompletionData}>
+              <BarChart data={weeklyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -100,7 +70,7 @@ const Analytics = () => {
           <h3 className="text-lg font-semibold text-dark mb-4">Monthly Trend</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={monthlyTrendData}>
+              <LineChart data={monthlyData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />

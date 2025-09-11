@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import analyticsService from '../services/analyticsService'
+import * as analyticsService from '../services/analyticsService'
 
 export const useAnalytics = () => {
   const { data: weeklyData, isLoading: weeklyLoading } = useQuery(
@@ -18,9 +18,27 @@ export const useAnalytics = () => {
     }
   )
 
+  const { data: habitStats, isLoading: statsLoading } = useQuery(
+    'habitStats',
+    () => analyticsService.getHabitStats(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
+
+  const { data: categoryData, isLoading: categoryLoading } = useQuery(
+    'categoryData',
+    () => analyticsService.getCategoryData(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
+
   return {
-    weeklyData,
-    monthlyData,
-    loading: weeklyLoading || monthlyLoading,
+    weeklyData: weeklyData?.data || [],
+    monthlyData: monthlyData?.data || [],
+    habitStats: habitStats?.data || {},
+    categoryData: categoryData?.data || [],
+    loading: weeklyLoading || monthlyLoading || statsLoading || categoryLoading,
   }
 }

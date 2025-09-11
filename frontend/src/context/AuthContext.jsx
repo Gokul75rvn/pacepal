@@ -1,7 +1,18 @@
 import React, { createContext, useState, useEffect } from 'react'
-import * as authService from '../services/authService'
 
 export const AuthContext = createContext()
+
+// Mock user data
+const mockUser = {
+  _id: '1',
+  name: 'Test User',
+  email: 'test@example.com',
+  avatar: '',
+  memberSince: '2023-01-01',
+  totalHabits: 5,
+  currentStreak: 7,
+  bestStreak: 21
+}
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -9,50 +20,66 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Check if user is logged in from localStorage
     const token = localStorage.getItem('token')
-    if (token) {
-      authService.getCurrentUser()
-        .then(response => {
-          setUser(response.data)
-          setIsAuthenticated(true)
-        })
-        .catch(() => {
-          localStorage.removeItem('token')
-        })
-        .finally(() => setLoading(false))
-    } else {
-      setLoading(false)
+    const userData = localStorage.getItem('user')
+    
+    if (token && userData) {
+      setUser(JSON.parse(userData))
+      setIsAuthenticated(true)
     }
+    
+    setLoading(false)
   }, [])
 
   const login = async (credentials) => {
-    try {
-      const response = await authService.login(credentials)
-      const { token, user } = response.data
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    // Mock validation - in a real app, this would be done by the backend
+    if (credentials.email === 'test@example.com' && credentials.password === 'password') {
+      const token = 'mock-jwt-token-' + Date.now()
       localStorage.setItem('token', token)
-      setUser(user)
+      localStorage.setItem('user', JSON.stringify(mockUser))
+      setUser(mockUser)
       setIsAuthenticated(true)
       return { success: true }
-    } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Login failed' }
+    } else {
+      return { 
+        success: false, 
+        error: 'Invalid email or password. Use test@example.com / password' 
+      }
     }
   }
 
   const register = async (userData) => {
-    try {
-      const response = await authService.register(userData)
-      const { token, user } = response.data
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
+    // Mock validation - in a real app, this would be done by the backend
+    if (userData.email && userData.password && userData.name) {
+      const token = 'mock-jwt-token-' + Date.now()
+      const newUser = {
+        ...mockUser,
+        name: userData.name,
+        email: userData.email
+      }
       localStorage.setItem('token', token)
-      setUser(user)
+      localStorage.setItem('user', JSON.stringify(newUser))
+      setUser(newUser)
       setIsAuthenticated(true)
       return { success: true }
-    } catch (error) {
-      return { success: false, error: error.response?.data?.message || 'Registration failed' }
+    } else {
+      return { 
+        success: false, 
+        error: 'Please fill in all fields' 
+      }
     }
   }
 
   const logout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
     setUser(null)
     setIsAuthenticated(false)
   }

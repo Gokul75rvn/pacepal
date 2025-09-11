@@ -10,20 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.1",
+    "@tanstack/react-query": "^4.36.1",
     "axios": "^1.6.2",
-    "react-hook-form": "^7.48.2",
-    "react-query": "^3.39.3",
     "bootstrap": "^5.3.2",
-    "react-bootstrap": "^2.9.1",
-    "recharts": "^2.8.0",
-    "react-hot-toast": "^2.4.1",
     "date-fns": "^2.30.0",
-    "react-icons": "^4.12.0"
+    "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-bootstrap": "^2.9.1",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^4.12.0",
+    "react-router-dom": "^6.20.1",
+    "recharts": "^2.15.4"
   },
   "devDependencies": {
+    "@tanstack/react-query-devtools": "^4.36.1",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react": "^4.2.0",

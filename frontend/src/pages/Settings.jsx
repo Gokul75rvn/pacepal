@@ -106,28 +106,6 @@ const NotificationsSettings = () => {
           </div>
         </div>
         
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Notification Types</h3>
-          <div className="space-y-3">
-            <div className="flex items-center">
-              <input type="checkbox" id="habit-reminders" className="mr-2" defaultChecked />
-              <label htmlFor="habit-reminders">Habit reminders</label>
-            </div>
-            <div className="flex items-center">
-              <input type="checkbox" id="streak-alerts" className="mr-2" defaultChecked />
-              <label htmlFor="streak-alerts">Streak alerts</label>
-            </div>
-            <div className="flex items-center">
-              <input type="checkbox" id="weekly-reports" className="mr-2" defaultChecked />
-              <label htmlFor="weekly-reports">Weekly progress reports</label>
-            </div>
-            <div className="flex items-center">
-              <input type="checkbox" id="achievement-notifications" className="mr-2" defaultChecked />
-              <label htmlFor="achievement-notifications">Achievement notifications</label>
-            </div>
-          </div>
-        </div>
-        
         <div className="flex justify-end">
           <Button variant="primary">Save Changes</Button>
         </div>
@@ -154,26 +132,6 @@ const SecuritySettings = () => {
           <Button variant="outline">Enable 2FA</Button>
         </div>
         
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Active Sessions</h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="font-medium">Chrome on Windows</p>
-                <p className="text-sm text-gray-600">New York, USA • Current session</p>
-              </div>
-              <span className="text-sm text-green-600">Active now</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="font-medium">Safari on iPhone</p>
-                <p className="text-sm text-gray-600">New York, USA • 2 days ago</p>
-              </div>
-              <Button variant="ghost" size="sm">Sign out</Button>
-            </div>
-          </div>
-        </div>
-        
         <div className="p-4 bg-red-50 rounded-lg">
           <h3 className="font-medium text-red-800 mb-2">Deactivate Account</h3>
           <p className="text-sm text-red-600 mb-4">
@@ -198,33 +156,6 @@ const DataSettings = () => {
             Get a copy of all your habit data and activity history
           </p>
           <Button variant="outline">Download Data</Button>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Data Sharing</h3>
-          <div className="space-y-3">
-            <div className="flex items-center">
-              <input type="checkbox" id="analytics" className="mr-2" defaultChecked />
-              <label htmlFor="analytics">Share anonymous usage data to improve Pacepal</label>
-            </div>
-            <div className="flex items-center">
-              <input type="checkbox" id="personalization" className="mr-2" defaultChecked />
-              <label htmlFor="personalization">Allow personalized recommendations</label>
-            </div>
-          </div>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Data Retention</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Choose how long we keep your deleted data
-          </p>
-          <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-            <option>30 days</option>
-            <option>90 days</option>
-            <option>1 year</option>
-            <option>Forever</option>
-          </select>
         </div>
         
         <div className="p-4 bg-red-50 rounded-lg">
@@ -275,41 +206,6 @@ const AppearanceSettings = () => {
           </div>
         </div>
         
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-4">Accent Color</h3>
-          <div className="grid grid-cols-5 gap-3">
-            {['blue', 'green', 'purple', 'red', 'yellow'].map(color => (
-              <div 
-                key={color}
-                className={`w-10 h-10 rounded-full cursor-pointer ${accentColor === color ? 'ring-2 ring-offset-2 ring-gray-400' : ''}`}
-                style={{ backgroundColor: getColorHex(color) }}
-                onClick={() => setAccentColor(color)}
-              ></div>
-            ))}
-          </div>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Font Size</h3>
-          <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
-            <option>Small</option>
-            <option selected>Medium</option>
-            <option>Large</option>
-          </select>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Compact Mode</h3>
-          <p className="text-sm text-gray-600 mb-4">Reduce spacing and padding to fit more content</p>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-        
         <div className="flex justify-end">
           <Button variant="primary">Save Changes</Button>
         </div>
@@ -325,39 +221,11 @@ const HelpSettings = () => {
       
       <div className="space-y-6">
         <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Frequently Asked Questions</h3>
-          <div className="space-y-3">
-            <div className="border-b border-gray-200 pb-3">
-              <p className="font-medium">How do I create a new habit?</p>
-              <p className="text-sm text-gray-600">Go to the Habits page and click "Add Habit"</p>
-            </div>
-            <div className="border-b border-gray-200 pb-3">
-              <p className="font-medium">Can I share my progress with friends?</p>
-              <p className="text-sm text-gray-600">Yes, you can share your progress from the Analytics page</p>
-            </div>
-            <div className="pb-3">
-              <p className="font-medium">How do streaks work?</p>
-              <p className="text-sm text-gray-600">Streaks count consecutive days you complete your habits</p>
-            </div>
-          </div>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
           <h3 className="font-medium mb-2">Contact Support</h3>
           <p className="text-sm text-gray-600 mb-4">
             Can't find what you're looking for? Our support team is here to help.
           </p>
           <Button variant="outline">Contact Support</Button>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Pacepal Resources</h3>
-          <div className="space-y-2">
-            <a href="#" className="block text-primary hover:underline">User Guide</a>
-            <a href="#" className="block text-primary hover:underline">Video Tutorials</a>
-            <a href="#" className="block text-primary hover:underline">Blog</a>
-            <a href="#" className="block text-primary hover:underline">Community Forum</a>
-          </div>
         </div>
         
         <div className="p-4 bg-gray-50 rounded-lg">
@@ -371,30 +239,11 @@ const HelpSettings = () => {
               <span className="text-gray-600">Last Updated</span>
               <span>Nov 15, 2023</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Terms of Service</span>
-              <a href="#" className="text-primary">View</a>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Privacy Policy</span>
-              <a href="#" className="text-primary">View</a>
-            </div>
           </div>
         </div>
       </div>
     </div>
   )
-}
-
-const getColorHex = (color) => {
-  switch (color) {
-    case 'blue': return '#4F46E5'
-    case 'green': return '#10B981'
-    case 'purple': return '#8B5CF6'
-    case 'red': return '#EF4444'
-    case 'yellow': return '#F59E0B'
-    default: return '#4F46E5'
-  }
 }
 
 export default Settings

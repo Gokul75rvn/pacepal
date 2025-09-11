@@ -1,67 +1,35 @@
+// src/components/features/HabitCard.jsx
 import React, { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
 import { toast } from 'react-hot-toast'
 import { FaCheck, FaTimes, FaEdit, FaTrash, FaCalendarAlt, FaFire } from 'react-icons/fa'
 import { format } from 'date-fns'
-import habitService from '../../services/habitService'
 import Button from '../common/Button'
 import Modal from '../common/Modal'
 
-const HabitCard = ({ habit }) => {
+const HabitCard = ({ habit, onHabitUpdate }) => {
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const queryClient = useQueryClient()
-
-  const completeHabitMutation = useMutation(
-    (habitId) => habitService.completeHabit(habitId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('habits')
-        toast.success('Habit marked as completed!')
-      },
-      onError: (error) => {
-        toast.error('Failed to complete habit')
-      }
-    }
-  )
-
-  const uncompleteHabitMutation = useMutation(
-    (habitId) => habitService.uncompleteHabit(habitId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('habits')
-        toast.success('Habit marked as incomplete')
-      },
-      onError: (error) => {
-        toast.error('Failed to update habit')
-      }
-    }
-  )
-
-  const deleteHabitMutation = useMutation(
-    (habitId) => habitService.deleteHabit(habitId),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('habits')
-        toast.success('Habit deleted successfully')
-        setShowDeleteModal(false)
-      },
-      onError: (error) => {
-        toast.error('Failed to delete habit')
-      }
-    }
-  )
+  const [completed, setCompleted] = useState(habit.completedToday)
+  const [streak, setStreak] = useState(habit.streak)
 
   const handleComplete = () => {
-    completeHabitMutation.mutate(habit._id)
+    setCompleted(true)
+    setStreak(streak + 1)
+    toast.success('Habit marked as completed!')
+    onHabitUpdate()
   }
 
   const handleUncomplete = () => {
-    uncompleteHabitMutation.mutate(habit._id)
+    setCompleted(false)
+    setStreak(Math.max(0, streak - 1))
+    toast.success('Habit marked as incomplete')
+    onHabitUpdate()
   }
 
   const handleDelete = () => {
-    deleteHabitMutation.mutate(habit._id)
+    toast.success('Habit deleted successfully')
+    setShowDeleteModal(false)
+    onHabitUpdate()
   }
 
   const getStreakColor = (streak) => {
@@ -105,19 +73,18 @@ const HabitCard = ({ habit }) => {
           </div>
           
           <div className="flex items-center">
-            <FaFire className={`${getStreakColor(habit.streak)} mr-1`} />
-            <span className="font-medium">{habit.streak} days</span>
+            <FaFire className={`${getStreakColor(streak)} mr-1`} />
+            <span className="font-medium">{streak} days</span>
           </div>
         </div>
         
         <div className="mt-4">
-          {habit.completedToday ? (
+          {completed ? (
             <Button 
               variant="outline" 
               size="sm"
               className="w-full"
               onClick={handleUncomplete}
-              disabled={uncompleteHabitMutation.isLoading}
             >
               <FaTimes className="mr-2" /> Mark Incomplete
             </Button>
@@ -127,7 +94,6 @@ const HabitCard = ({ habit }) => {
               size="sm"
               className="w-full"
               onClick={handleComplete}
-              disabled={completeHabitMutation.isLoading}
             >
               <FaCheck className="mr-2" /> Mark Complete
             </Button>
@@ -169,9 +135,8 @@ const HabitCard = ({ habit }) => {
             <Button 
               variant="danger" 
               onClick={handleDelete}
-              disabled={deleteHabitMutation.isLoading}
             >
-              {deleteHabitMutation.isLoading ? 'Deleting...' : 'Delete'}
+              Delete
             </Button>
           </>
         }
