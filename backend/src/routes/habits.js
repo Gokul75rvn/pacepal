@@ -1,21 +1,14 @@
-const express = require('express');
+import express from 'express';
+import Habit from '../models/Habit.js';
+import HabitController from '../controllers/habitController.js';
+
 const router = express.Router();
-const HabitController = require('../controllers/habitController');
-const authMiddleware = require('../middleware/auth');
+const habitController = new HabitController(Habit);
 
-// Create a new habit
-router.post('/', authMiddleware, HabitController.createHabit);
+// Bind each method to the controller instance
+router.post('/', habitController.createHabit.bind(habitController));
+router.get('/', habitController.getHabits.bind(habitController));
+router.put('/:id', habitController.updateHabit.bind(habitController));
+router.delete('/:id', habitController.deleteHabit.bind(habitController));
 
-// Get all habits
-router.get('/', authMiddleware, HabitController.getAllHabits);
-
-// Get a habit by ID
-router.get('/:id', authMiddleware, HabitController.getHabitById);
-
-// Update a habit by ID
-router.put('/:id', authMiddleware, HabitController.updateHabit);
-
-// Delete a habit by ID
-router.delete('/:id', authMiddleware, HabitController.deleteHabit);
-
-module.exports = router;
+export default router;

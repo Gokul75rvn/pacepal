@@ -1,0 +1,113 @@
+/* Custom styles for Pacepal */
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #4F46E5;
+  border-color: #4F46E5;
+}
+
+.btn-primary:hover {
+  background-color: #4338CA;
+  border-color: #4338CA;
+}
+
+.btn-outline-primary {
+  color: #4F46E5;
+  border-color: #4F46E5;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4F46E5;
+  border-color: #4F46E5;
+}
+
+/* Form styles */
+.form-control:focus {
+  border-color: #4F46E5;
+  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+}
+
+/* Progress bar */
+.progress {
+  height: 8px;
+}
+
+/* Badge styles */
+.badge-primary {
+  background-color: #4F46E5;
+}
+
+/* Utility classes */
+.text-primary {
+  color: #4F46E5 !important;
+}
+
+.bg-primary {
+  background-color: #4F46E5 !important;
+}
+
+.border-primary {
+  border-color: #4F46E5 !important;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1F2937;
+    color: #F9FAFB;
+  }
+  
+  .bg-white {
+    background-color: #374151 !important;
+  }
+  
+  .text-dark {
+    color: #F9FAFB !important;
+  }
+  
+  .text-gray-600 {
+    color: #D1D5DB !important;
+  }
+  
+  .border-gray-200 {
+    border-color: #4B5563 !important;
+  }
+}

@@ -1,3 +1,5 @@
+// src/controllers/habitController.js
+
 class HabitController {
     constructor(habitModel) {
         this.habitModel = habitModel;
@@ -49,4 +51,4 @@ class HabitController {
     }
 }
 
-export default HabitController;
+module.exports = HabitController;

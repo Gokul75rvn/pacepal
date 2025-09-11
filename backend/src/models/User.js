@@ -1,22 +1,18 @@
-class User {
-    constructor(id, username, password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-    // Method to validate user credentials
-    validatePassword(inputPassword) {
-        return this.password === inputPassword;
-    }
+const userSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  habits: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Habit' }]
+});
 
-    // Method to get user details
-    getUserDetails() {
-        return {
-            id: this.id,
-            username: this.username
-        };
-    }
-}
+// Hash password before saving
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
