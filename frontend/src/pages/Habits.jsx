@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useHabits } from '../hooks/useHabits'
 import { FaPlus, FaSearch, FaFilter } from 'react-icons/fa'
 import HabitCard from '../components/features/HabitCard'
@@ -123,19 +123,27 @@ const Habits = () => {
         }
       >
         <div>
-          <Input
-            label="Habit Name"
-            placeholder="e.g. Morning Meditation"
-            value={newHabit.name}
-            onChange={(e) => setNewHabit({...newHabit, name: e.target.value})}
-          />
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Habit Name
+            </label>
+            <Input
+              placeholder="e.g. Morning Meditation"
+              value={newHabit.name}
+              onChange={(e) => setNewHabit({...newHabit, name: e.target.value})}
+            />
+          </div>
           
-          <Input
-            label="Description"
-            placeholder="Why is this habit important to you?"
-            value={newHabit.description}
-            onChange={(e) => setNewHabit({...newHabit, description: e.target.value})}
-          />
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Description
+            </label>
+            <Input
+              placeholder="Why is this habit important to you?"
+              value={newHabit.description}
+              onChange={(e) => setNewHabit({...newHabit, description: e.target.value})}
+            />
+          </div>
           
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">

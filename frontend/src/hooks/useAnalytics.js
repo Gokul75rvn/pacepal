@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import * as analyticsService from '../services/analyticsService'
 
 export const useAnalytics = () => {

@@ -11,6 +11,13 @@ import Analytics from './pages/Analytics'
 import Profile from './pages/Profile'
 import Settings from './pages/Settings'
 import ProtectedRoute from './components/common/ProtectedRoute'
+import Activity from './pages/Activity'
+import Friends from './pages/Friends'
+import Achievement from './pages/Achievement'
+import HabitTracking from './pages/HabitTracking'
+import AllHabitsSchedule from './pages/AllHabitsSchedule'
+import ScheduleDetails from './pages/ScheduleDetails';
+import AddSchedule from './pages/AddSchedule';
 
 function App() {
   return (
@@ -44,6 +51,41 @@ function App() {
           <MainLayout><Profile /></MainLayout>
         </ProtectedRoute>
       } />
+        <Route path="/activity" element={
+          <ProtectedRoute>
+            <MainLayout><Activity /></MainLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/friends" element={
+          <ProtectedRoute>
+            <MainLayout><Friends /></MainLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/achievement" element={
+          <ProtectedRoute>
+            <MainLayout><Achievement /></MainLayout>
+          </ProtectedRoute>
+        } />
+      <Route path="/habit-tracking" element={
+        <ProtectedRoute>
+          <MainLayout><HabitTracking /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/all-habits-schedule" element={
+        <ProtectedRoute>
+          <MainLayout><AllHabitsSchedule /></MainLayout>
+        </ProtectedRoute>
+      } />
+        <Route path="/add-schedule" element={
+          <ProtectedRoute>
+            <MainLayout><AddSchedule /></MainLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/schedule-details" element={
+          <ProtectedRoute>
+            <MainLayout><ScheduleDetails /></MainLayout>
+          </ProtectedRoute>
+        } />
       <Route path="/settings" element={
         <ProtectedRoute>
           <MainLayout><Settings /></MainLayout>

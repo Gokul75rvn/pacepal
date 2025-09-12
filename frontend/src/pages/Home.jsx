@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaCheck, FaChartLine, FaList, FaUserFriends } from 'react-icons/fa'
+import { FaCheck, FaChartLine, FaList, FaUserFriends, FaCalendarAlt } from 'react-icons/fa'
 import Button from '../components/common/Button'
 
 const Home = () => {
@@ -29,12 +29,14 @@ const Home = () => {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <FeatureCard 
-          icon={<FaCheck className="text-2xl" />}
-          title="Habit Tracking"
-          description="Track your daily habits and build consistency with visual progress indicators."
-        />
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
+        <Link to="/habit-tracking" className="block">
+          <FeatureCard 
+            icon={<FaCheck className="text-2xl" />}
+            title="Habit Tracking"
+            description="Track your daily habits and build consistency with visual progress indicators."
+          />
+        </Link>
         <FeatureCard 
           icon={<FaChartLine className="text-2xl" />}
           title="Analytics"
@@ -50,6 +52,13 @@ const Home = () => {
           title="Community"
           description="Join challenges and share your progress with a supportive community."
         />
+        <Link to="/all-habits-schedule" className="block">
+          <FeatureCard
+            icon={<FaCalendarAlt className="text-2xl" />}
+            title="All Habits Schedule"
+            description="View and manage your complete habit schedule in one place."
+          />
+        </Link>
       </div>
       
       <div className="bg-primary rounded-xl p-8 text-white text-center">
