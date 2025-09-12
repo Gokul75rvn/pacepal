@@ -1,4 +1,3 @@
-// src/context/HabitContext.jsx
 import React, { createContext, useState, useEffect } from 'react'
 import * as habitService from '../services/habitService'
 
@@ -13,11 +12,14 @@ export const HabitProvider = ({ children }) => {
     const fetchHabits = async () => {
       try {
         setLoading(true)
-        // Try to fetch from API
         const response = await habitService.getHabits()
         setHabits(response.data)
         setError(null)
       } catch (error) {
+        if (error?.response?.status === 404) {
+          console.warn('Habits endpoint not found (404).')
+          return
+        }
         console.error('Failed to fetch habits:', error)
         setError('Failed to fetch habits. Using mock data for now.')
         

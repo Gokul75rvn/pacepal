@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
-import Button from '../common/Button'
-import Input from '../common/Input'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import Button from '../common/Button';
+import Input from '../common/Input';
 
 const LoginForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const [serverError, setServerError] = useState('')
-  const { login, loading } = useAuth()
+  const { loginWithEmailAndPassword, loading } = useAuth();
+  const [serverError, setServerError] = useState('');
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const result = await login(data)
-    if (result.success) {
-      // Login successful, redirect handled by AuthContext
-    } else {
-      setServerError(result.error)
+    try {
+      const result = await loginWithEmailAndPassword(data.email, data.password);
+      if (result.success) {
+        // Login successful
+      } else {
+        setServerError(result.error);
+      }
+    } catch (error) {
+      setServerError(error.message || 'Login failed');
     }
-  }
+  };
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -108,7 +113,7 @@ const LoginForm = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

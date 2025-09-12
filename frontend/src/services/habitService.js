@@ -1,13 +1,30 @@
-import api from './api'
+import axios from 'axios';
 
-export const createHabit = (data) => api.post('/habits', data)
-export const getHabits = () => api.get('/habits')
-export const updateHabit = (id, data) => api.put(`/habits/${id}`, data)
-export const deleteHabit = (id) => api.delete(`/habits/${id}`)
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+});
 
-export default {
-  createHabit,
-  getHabits,
-  updateHabit,
-  deleteHabit
+export const getHabits = async () => {
+  const { data } = await api.get('/habits');
+  return data;
+}
+
+export const createHabit = (habitData) => {
+  return api.post('/habits', habitData)
+}
+
+export const updateHabit = (id, habitData) => {
+  return api.put(`/habits/${id}`, habitData)
+}
+
+export const deleteHabit = (id) => {
+  return api.delete(`/habits/${id}`)
+}
+
+export const completeHabit = (id, notes) => {
+  return api.post(`/habits/${id}/complete`, { notes })
+}
+
+export const uncompleteHabit = (id) => {
+  return api.post(`/habits/${id}/uncomplete`)
 }

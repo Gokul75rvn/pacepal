@@ -1,35 +1,54 @@
-// src/components/features/HabitCard.jsx
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { FaCheck, FaTimes, FaEdit, FaTrash, FaCalendarAlt, FaFire } from 'react-icons/fa'
 import { format } from 'date-fns'
+import * as habitService from '../../services/habitService'
 import Button from '../common/Button'
 import Modal from '../common/Modal'
 
 const HabitCard = ({ habit, onHabitUpdate }) => {
   const [showEditModal, setShowEditModal] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [completed, setCompleted] = useState(habit.completedToday)
-  const [streak, setStreak] = useState(habit.streak)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleComplete = () => {
-    setCompleted(true)
-    setStreak(streak + 1)
-    toast.success('Habit marked as completed!')
-    onHabitUpdate()
+  const handleComplete = async () => {
+    setIsLoading(true)
+    try {
+      await habitService.completeHabit(habit._id, '')
+      toast.success('Habit marked as completed!')
+      onHabitUpdate()
+    } catch (error) {
+      toast.error('Failed to complete habit')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleUncomplete = () => {
-    setCompleted(false)
-    setStreak(Math.max(0, streak - 1))
-    toast.success('Habit marked as incomplete')
-    onHabitUpdate()
+  const handleUncomplete = async () => {
+    setIsLoading(true)
+    try {
+      await habitService.uncompleteHabit(habit._id)
+      toast.success('Habit marked as incomplete')
+      onHabitUpdate()
+    } catch (error) {
+      toast.error('Failed to update habit')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const handleDelete = () => {
-    toast.success('Habit deleted successfully')
-    setShowDeleteModal(false)
-    onHabitUpdate()
+  const handleDelete = async () => {
+    setIsLoading(true)
+    try {
+      await habitService.deleteHabit(habit._id)
+      toast.success('Habit deleted successfully')
+      setShowDeleteModal(false)
+      onHabitUpdate()
+    } catch (error) {
+      toast.error('Failed to delete habit')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const getStreakColor = (streak) => {
@@ -73,18 +92,19 @@ const HabitCard = ({ habit, onHabitUpdate }) => {
           </div>
           
           <div className="flex items-center">
-            <FaFire className={`${getStreakColor(streak)} mr-1`} />
-            <span className="font-medium">{streak} days</span>
+            <FaFire className={`${getStreakColor(habit.streak)} mr-1`} />
+            <span className="font-medium">{habit.streak} days</span>
           </div>
         </div>
         
         <div className="mt-4">
-          {completed ? (
+          {habit.completedToday ? (
             <Button 
               variant="outline" 
               size="sm"
               className="w-full"
               onClick={handleUncomplete}
+              disabled={isLoading}
             >
               <FaTimes className="mr-2" /> Mark Incomplete
             </Button>
@@ -94,6 +114,7 @@ const HabitCard = ({ habit, onHabitUpdate }) => {
               size="sm"
               className="w-full"
               onClick={handleComplete}
+              disabled={isLoading}
             >
               <FaCheck className="mr-2" /> Mark Complete
             </Button>
@@ -135,8 +156,9 @@ const HabitCard = ({ habit, onHabitUpdate }) => {
             <Button 
               variant="danger" 
               onClick={handleDelete}
+              disabled={isLoading}
             >
-              Delete
+              {isLoading ? 'Deleting...' : 'Delete'}
             </Button>
           </>
         }

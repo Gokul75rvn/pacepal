@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,10 +8,26 @@ export default defineConfig({
     port: 3000,
     host: true,
     open: true,
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
+    watch: {
+      usePolling: false,
     },
+    hmr: {
+      overlay: false,
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          'react-query': ['@tanstack/react-query'],
+          'react-hot-toast': ['react-hot-toast'],
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@tanstack/react-query', 'react-hot-toast'],
   },
 })

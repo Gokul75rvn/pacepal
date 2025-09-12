@@ -1,25 +1,29 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../hooks/useAuth'
-import Button from '../common/Button'
-import Input from '../common/Input'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
+import Button from '../common/Button';
+import Input from '../common/Input';
 
 const RegisterForm = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm()
-  const [serverError, setServerError] = useState('')
-  const { register: registerUser, loading } = useAuth()
+  const { registerWithEmailAndPassword, loading } = useAuth();
+  const [serverError, setServerError] = useState('');
+  const password = useForm({ mode: 'onChange' }).watch('password');
 
-  const password = watch('password')
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data) => {
-    const result = await registerUser(data)
-    if (result.success) {
-      // Registration successful, redirect handled by AuthContext
-    } else {
-      setServerError(result.error)
+    try {
+      const result = await registerWithEmailAndPassword(data.email, data.password, data.name);
+      if (result.success) {
+        // Registration successful
+      } else {
+        setServerError(result.error);
+      }
+    } catch (error) {
+      setServerError(error.message || 'Registration failed');
     }
-  }
+  };
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -127,7 +131,7 @@ const RegisterForm = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RegisterForm
+export default RegisterForm;
