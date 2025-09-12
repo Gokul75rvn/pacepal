@@ -78,7 +78,7 @@ const Home = () => {
 
 const FeatureCard = ({ icon, title, description }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center">
+    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer">
       <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
         <div className="text-primary">{icon}</div>
       </div>

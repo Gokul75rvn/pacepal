@@ -64,7 +64,7 @@ const AllHabitsSchedule = () => {
       <h1 className="text-3xl font-bold text-dark mb-8">All Habits Schedule</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {habits.map((habit, idx) => (
-          <div key={idx} className="bg-white rounded-lg shadow p-6 flex items-center justify-between">
+          <div key={idx} className="bg-white rounded-lg shadow p-6 flex items-center justify-between transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer">
             <div className="flex items-center">
               <span className="text-3xl mr-4">{habit.icon}</span>
               <div>
@@ -109,7 +109,7 @@ const AllHabitsSchedule = () => {
           </div>
         ))}
         {/* Add New Schedule Card */}
-  <div className="bg-white rounded-lg shadow p-6 flex items-center justify-center cursor-pointer hover:bg-gray-50" onClick={() => navigate('/add-schedule')}>
+        <div className="bg-white rounded-lg shadow p-6 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-105 hover:shadow-xl hover:bg-gray-50" onClick={() => navigate('/add-schedule')}>
           <div className="flex items-center">
             <AiOutlinePlus className="text-4xl mr-4 text-primary" />
             <span className="font-semibold text-lg text-primary">Add New Schedule</span>
@@ -118,16 +118,21 @@ const AllHabitsSchedule = () => {
       </div>
       <div className="flex justify-end mb-6">
         <button
-          className="bg-primary text-white px-6 py-2 rounded-md font-medium shadow-lg"
+          className="bg-primary text-white px-6 py-2 rounded-md font-medium shadow-lg transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer"
           onClick={handleSubmit}
         >
           Submit
         </button>
       </div>
-      <div className="bg-gray-100 rounded-lg p-6 text-center">
+  <div className="bg-gray-100 rounded-lg p-6 text-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer">
         <h2 className="text-xl font-bold mb-2">Continue with Email</h2>
         <p className="text-gray-600 mb-4">Get reminders and updates for your habit schedule via email.</p>
-        <button className="bg-primary text-white px-6 py-2 rounded-md font-medium">Continue with Email</button>
+        <button
+          className="bg-blue-500 text-white rounded px-6 py-2 transition-colors duration-200 hover:bg-blue-600"
+          onClick={() => window.location.href = '/login'}
+        >
+          Continue with Email
+        </button>
       </div>
       {/* Submit button above Continue with Email section */}
       <div className="flex justify-start mt-6 mb-6">
