@@ -54,7 +54,7 @@ const AllHabitsSchedule = () => {
     { name: 'Completed', time: '1:00 PM', icon: '✅' },
     { name: 'Exercise', time: '1:00 PM', icon: '🏃‍♂️' },
   ];
-  setHabits(fixedHabits);
+  setHabits(fixedHabits); 
   toast.success('Schedule updated!');
   navigate('/schedule-details', { state: { habits: fixedHabits } });
   };
