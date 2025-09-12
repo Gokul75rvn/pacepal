@@ -9,7 +9,7 @@ export const useAnalytics = () => {
       refetchOnWindowFocus: false,
     }
   )
-
+  
   const { data: monthlyData, isLoading: monthlyLoading } = useQuery(
     'monthlyAnalytics',
     () => analyticsService.getMonthlyData(),

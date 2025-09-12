@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { FaCheck, FaChartLine, FaList, FaUserFriends, FaCalendarAlt } from 'react-icons/fa'
+import { FaCheck, FaChartLine, FaList, FaUserFriends } from 'react-icons/fa'
 import Button from '../components/common/Button'
 
 const Home = () => {
@@ -29,34 +29,31 @@ const Home = () => {
         </div>
       </div>
       
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-16">
-        <Link to="/habit-tracking" className="block">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <FeatureCard 
+          icon={<FaCheck className="text-2xl" />}
+          title="Habit Tracking"
+          description="Track your daily habits and build consistency with visual progress indicators."
+        />
+        <Link to="/analytics" style={{ textDecoration: 'none' }}>
           <FeatureCard 
-            icon={<FaCheck className="text-2xl" />}
-            title="Habit Tracking"
-            description="Track your daily habits and build consistency with visual progress indicators."
+            icon={<FaChartLine className="text-2xl" />}
+            title="Analytics"
+            description="Get insights into your habit patterns with detailed analytics and reports."
+            clickable
           />
         </Link>
-        <FeatureCard 
-          icon={<FaChartLine className="text-2xl" />}
-          title="Analytics"
-          description="Get insights into your habit patterns with detailed analytics and reports."
-        />
         <FeatureCard 
           icon={<FaList className="text-2xl" />}
           title="Routine Builder"
           description="Create custom routines to streamline your daily activities and maximize productivity."
         />
-        <FeatureCard 
-          icon={<FaUserFriends className="text-2xl" />}
-          title="Community"
-          description="Join challenges and share your progress with a supportive community."
-        />
-        <Link to="/all-habits-schedule" className="block">
-          <FeatureCard
-            icon={<FaCalendarAlt className="text-2xl" />}
-            title="All Habits Schedule"
-            description="View and manage your complete habit schedule in one place."
+        <Link to="/community" style={{ textDecoration: 'none' }}>
+          <FeatureCard 
+            icon={<FaUserFriends className="text-2xl" />}
+            title="Community"
+            description="Join challenges and share your progress with a supportive community."
+            clickable
           />
         </Link>
       </div>
@@ -76,10 +73,13 @@ const Home = () => {
   )
 }
 
-const FeatureCard = ({ icon, title, description }) => {
+const FeatureCard = ({ icon, title, description, clickable }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center transition-transform duration-200 hover:scale-105 hover:shadow-xl cursor-pointer">
-      <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+    <div
+      className={`bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-fadein ${clickable ? 'cursor-pointer' : ''}`}
+      style={{ animation: 'fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1)' }}
+    >
+      <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
         <div className="text-primary">{icon}</div>
       </div>
       <h3 className="text-xl font-semibold text-dark mb-2">{title}</h3>
@@ -87,5 +87,21 @@ const FeatureCard = ({ icon, title, description }) => {
     </div>
   )
 }
+
+// Add fadeInUp and bounce-slow animations
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fadein { animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-bounce-slow { animation: bounceSlow 2.2s infinite; }
+`;
+document.head.appendChild(style);
 
 export default Home
