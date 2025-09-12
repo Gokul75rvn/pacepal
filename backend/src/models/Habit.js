@@ -1,22 +1,14 @@
-class Habit {
-    constructor(id, name, frequency) {
-        this.id = id;
-        this.name = name;
-        this.frequency = frequency;
-    }
+const mongoose = require('mongoose');
 
-    getHabitDetails() {
-        return {
-            id: this.id,
-            name: this.name,
-            frequency: this.frequency
-        };
-    }
+const habitSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    frequency: { type: String, enum: ['daily', 'weekly', 'monthly'], default: 'daily' },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    streak: { type: Number, default: 0 },
+    lastCompletedAt: { type: Date }
+  },
+  { timestamps: true }
+);
 
-    updateHabit(name, frequency) {
-        this.name = name;
-        this.frequency = frequency;
-    }
-}
-
-module.exports = Habit;
+module.exports = mongoose.model('Habit', habitSchema);

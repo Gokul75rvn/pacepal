@@ -1,6 +1,6 @@
-import express from 'express';
-import Habit from '../models/Habit.js';
-import HabitController from '../controllers/habitController.js';
+const express = require('express');
+const Habit = require('../models/Habit');
+const HabitController = require('../controllers/habitController');
 
 const router = express.Router();
 const habitController = new HabitController(Habit);
@@ -11,4 +11,4 @@ router.get('/', habitController.getHabits.bind(habitController));
 router.put('/:id', habitController.updateHabit.bind(habitController));
 router.delete('/:id', habitController.deleteHabit.bind(habitController));
 
-export default router;
+module.exports = router;

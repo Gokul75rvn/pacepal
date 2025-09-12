@@ -30,7 +30,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+  <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-dark mb-8">My Profile</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -42,7 +42,6 @@ const Profile = () => {
               </div>
               <h2 className="text-xl font-semibold text-dark">{user?.name}</h2>
               <p className="text-gray-600">{user?.email}</p>
-              
               <div className="mt-6 w-full">
                 <Button 
                   variant="outline" 
@@ -57,7 +56,6 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 mt-6">
             <h3 className="text-lg font-semibold text-dark mb-4">Account Stats</h3>
             <div className="space-y-3">
@@ -80,11 +78,9 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        
         <div className="lg:col-span-2">
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
             <h2 className="text-xl font-semibold text-dark mb-6">Profile Information</h2>
-            
             <form onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input
@@ -95,7 +91,6 @@ const Profile = () => {
                   name="name"
                   disabled={!isEditing}
                 />
-                
                 <Input
                   label="Email Address"
                   type="email"
@@ -105,7 +100,6 @@ const Profile = () => {
                   name="email"
                   disabled={!isEditing}
                 />
-                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <FaLock className="inline mr-2" />
@@ -116,14 +110,13 @@ const Profile = () => {
                       type="password"
                       value="••••••••"
                       disabled
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100 text-gray-700"
                     />
                     <Button variant="ghost" className="ml-2" type="button">
                       Change
                     </Button>
                   </div>
                 </div>
-                
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     <FaGlobe className="inline mr-2" />
@@ -134,7 +127,7 @@ const Profile = () => {
                     value={formData.timezone}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-gray-700 bg-gray-100"
                   >
                     <option value="UTC-12">UTC-12:00</option>
                     <option value="UTC-11">UTC-11:00</option>
@@ -163,18 +156,18 @@ const Profile = () => {
                     <option value="UTC+12">UTC+12:00</option>
                   </select>
                 </div>
-                
                 <div className="md:col-span-2">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-gray-100 border border-gray-300 rounded-lg">
                     <div>
                       <div className="flex items-center">
-                        <FaBell className="text-gray-600 mr-2" />
-                        <span className="font-medium">Email Notifications</span>
+                        <FaBell className="text-gray-700 mr-2" />
+                        <span className="font-medium text-gray-700">Email Notifications</span>
                       </div>
-                      <p className="text-sm text-gray-600 mt-1">Receive reminders and progress updates</p>
+                      <p className="text-sm text-gray-700 mt-1">Receive reminders and progress updates</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
+                      
                         type="checkbox"
                         name="notifications"
                         checked={formData.notifications}
@@ -182,19 +175,18 @@ const Profile = () => {
                         disabled={!isEditing}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <div className="w-11 h-6 bg-gray-100 border border-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-gray-100 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-700 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
                 </div>
-                
                 <div className="md:col-span-2">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="flex items-center justify-between p-4 bg-gray-100 border border-gray-300 rounded-lg">
                     <div>
                       <div className="flex items-center">
-                        <FaMoon className="text-gray-600 mr-2" />
-                        <span className="font-medium">Dark Mode</span>
+                        <FaMoon className="text-gray-700 mr-2" />
+                        <span className="font-medium text-gray-700">Dark Mode</span>
                       </div>
-                      <p className="text-sm text-gray-600 mt-1">Enable dark theme for better night viewing</p>
+                      <p className="text-sm text-gray-700 mt-1">Enable dark theme for better night viewing</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -205,12 +197,11 @@ const Profile = () => {
                         disabled={!isEditing}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+                      <div className="w-11 h-6 bg-gray-100 border border-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-gray-100 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-gray-700 after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                     </label>
                   </div>
                 </div>
               </div>
-              
               {isEditing && (
                 <div className="mt-6 flex justify-end">
                   <Button variant="primary" type="submit">
@@ -219,19 +210,6 @@ const Profile = () => {
                 </div>
               )}
             </form>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200 mt-6">
-            <h2 className="text-xl font-semibold text-dark mb-4">Danger Zone</h2>
-            <div className="p-4 bg-red-50 rounded-lg">
-              <h3 className="font-medium text-red-800 mb-2">Delete Account</h3>
-              <p className="text-sm text-red-600 mb-4">
-                Once you delete your account, there is no going back. Please be certain.
-              </p>
-              <Button variant="danger">
-                Delete Account
-              </Button>
-            </div>
           </div>
         </div>
       </div>

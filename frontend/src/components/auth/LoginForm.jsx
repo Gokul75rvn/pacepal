@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import Button from '../common/Button'
 import Input from '../common/Input'
@@ -9,11 +9,12 @@ const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [serverError, setServerError] = useState('')
   const { login, loading } = useAuth()
+  const navigate = useNavigate()
 
   const onSubmit = async (data) => {
     const result = await login(data)
     if (result.success) {
-      // Login successful, redirect handled by AuthContext
+      navigate('/before')
     } else {
       setServerError(result.error)
     }

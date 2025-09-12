@@ -18,15 +18,15 @@ const Analytics = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-dark mb-8">Analytics</h1>
+    <div className="container mx-auto px-4 py-8 bg-white">
+      <h1 className="text-3xl font-bold text-primary mb-8">Analytics</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatsCard 
           title="Current Streak" 
           value={`${habitStats.currentStreak || 0} days`} 
           icon={<FaFire />} 
-          color="accent" 
+          color="primary" 
         />
         <StatsCard 
           title="Best Streak" 
@@ -38,19 +38,19 @@ const Analytics = () => {
           title="Completion Rate" 
           value={`${habitStats.completionRate || 0}%`} 
           icon={<FaChartLine />} 
-          color="secondary" 
+          color="primary" 
         />
         <StatsCard 
           title="Total Habits" 
           value={habitStats.totalHabits || 0} 
           icon={<FaCalendarAlt />} 
-          color="light" 
+          color="primary" 
         />
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-dark mb-4">Weekly Completion</h3>
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Weekly Completion</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyData}>
@@ -59,15 +59,15 @@ const Analytics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="completed" fill="#10B981" name="Completed" />
-                <Bar dataKey="missed" fill="#EF4444" name="Missed" />
+                <Bar dataKey="completed" fill="#6EE7B7" name="Completed" />
+                <Bar dataKey="missed" fill="#111111" name="Missed" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-dark mb-4">Monthly Trend</h3>
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Monthly Trend</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={monthlyData}>
@@ -76,7 +76,7 @@ const Analytics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="completion" stroke="#4F46E5" name="Completion %" />
+                <Line type="monotone" dataKey="completion" stroke="#111111" name="Completion %" />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -84,8 +84,8 @@ const Analytics = () => {
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-dark mb-4">Habit Categories</h3>
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Habit Categories</h3>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -95,12 +95,12 @@ const Analytics = () => {
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="#6EE7B7"
                   dataKey="value"
                   label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 >
                   {categoryData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#6EE7B7' : '#111111'} />
                   ))}
                 </Pie>
                 <Tooltip />
@@ -109,26 +109,26 @@ const Analytics = () => {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-          <h3 className="text-lg font-semibold text-dark mb-4">Insights</h3>
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Insights</h3>
           <div className="space-y-4">
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h4 className="font-medium text-blue-800">Best Performance</h4>
-              <p className="text-sm text-blue-600 mt-1">
+            <div className="p-4 bg-green-50 rounded-lg">
+              <h4 className="font-medium text-black">Best Performance</h4>
+              <p className="text-sm text-black mt-1">
                 You complete 90% of your habits on Thursdays. Consider scheduling challenging habits on this day.
               </p>
             </div>
             
-            <div className="p-4 bg-yellow-50 rounded-lg">
-              <h4 className="font-medium text-yellow-800">Needs Attention</h4>
-              <p className="text-sm text-yellow-600 mt-1">
+            <div className="p-4 bg-green-100 rounded-lg">
+              <h4 className="font-medium text-black">Needs Attention</h4>
+              <p className="text-sm text-black mt-1">
                 Your weekend habit completion is lower. Try simplifying your weekend routines.
               </p>
             </div>
             
             <div className="p-4 bg-green-50 rounded-lg">
-              <h4 className="font-medium text-green-800">Positive Trend</h4>
-              <p className="text-sm text-green-600 mt-1">
+              <h4 className="font-medium text-black">Positive Trend</h4>
+              <p className="text-sm text-black mt-1">
                 Your overall completion rate has improved by 12% this month.
               </p>
             </div>
