@@ -210,11 +210,6 @@ const Profile = () => {
                 </div>
               )}
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export default Profile
+                    </div>
+                  </div>
+                </div>
