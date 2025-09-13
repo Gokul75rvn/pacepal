@@ -1,30 +1,38 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from 'react-query'
 import * as analyticsService from '../services/analyticsService'
 
 export const useAnalytics = () => {
-  const { data: weeklyData, isLoading: weeklyLoading } = useQuery({
-    queryKey: ['weeklyAnalytics'],
-    queryFn: () => analyticsService.getWeeklyData(),
-    refetchOnWindowFocus: false,
-  })
+  const { data: weeklyData, isLoading: weeklyLoading } = useQuery(
+    'weeklyAnalytics',
+    () => analyticsService.getWeeklyData(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
 
-  const { data: monthlyData, isLoading: monthlyLoading } = useQuery({
-    queryKey: ['monthlyAnalytics'],
-    queryFn: () => analyticsService.getMonthlyData(),
-    refetchOnWindowFocus: false,
-  })
+  const { data: monthlyData, isLoading: monthlyLoading } = useQuery(
+    'monthlyAnalytics',
+    () => analyticsService.getMonthlyData(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
 
-  const { data: habitStats, isLoading: statsLoading } = useQuery({
-    queryKey: ['habitStats'],
-    queryFn: () => analyticsService.getHabitStats(),
-    refetchOnWindowFocus: false,
-  })
+  const { data: habitStats, isLoading: statsLoading } = useQuery(
+    'habitStats',
+    () => analyticsService.getHabitStats(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
 
-  const { data: categoryData, isLoading: categoryLoading } = useQuery({
-    queryKey: ['categoryData'],
-    queryFn: () => analyticsService.getCategoryData(),
-    refetchOnWindowFocus: false,
-  })
+  const { data: categoryData, isLoading: categoryLoading } = useQuery(
+    'categoryData',
+    () => analyticsService.getCategoryData(),
+    {
+      refetchOnWindowFocus: false,
+    }
+  )
 
   return {
     weeklyData: weeklyData?.data || [],
@@ -32,5 +40,5 @@ export const useAnalytics = () => {
     habitStats: habitStats?.data || {},
     categoryData: categoryData?.data || [],
     loading: weeklyLoading || monthlyLoading || statsLoading || categoryLoading,
-  }
-}
+  };
+};
