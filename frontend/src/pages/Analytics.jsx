@@ -41,6 +41,17 @@ const Analytics = () => {
   }
 
   return (
+<<<<<<< HEAD
+    <div className="container mx-auto px-4 py-8 bg-white">
+      <h1 className="text-3xl font-bold text-primary mb-8">Analytics</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <StatsCard 
+          title="Current Streak" 
+          value={`${habitStats.currentStreak || 0} days`} 
+          icon={<FaFire />} 
+          color="primary" 
+=======
     <div
       className={`container mx-auto px-4 py-8 ${
         darkMode ? "bg-dark text-white min-h-screen" : ""
@@ -54,6 +65,7 @@ const Analytics = () => {
           value={`${habitStats.currentStreak || 0} days`}
           icon={<FaFire />}
           color="accent"
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
         />
         <StatsCard
           title="Best Streak"
@@ -61,6 +73,19 @@ const Analytics = () => {
           icon={<FaTrophy />}
           color="primary"
         />
+<<<<<<< HEAD
+        <StatsCard 
+          title="Completion Rate" 
+          value={`${habitStats.completionRate || 0}%`} 
+          icon={<FaChartLine />} 
+          color="primary" 
+        />
+        <StatsCard 
+          title="Total Habits" 
+          value={habitStats.totalHabits || 0} 
+          icon={<FaCalendarAlt />} 
+          color="primary" 
+=======
         <StatsCard
           title="Completion Rate"
           value={`${habitStats.completionRate || 0}%`}
@@ -72,16 +97,22 @@ const Analytics = () => {
           value={habitStats.totalHabits || 0}
           icon={<FaCalendarAlt />}
           color="light"
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+<<<<<<< HEAD
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Weekly Completion</h3>
+=======
         <div
           className={`rounded-lg shadow-md p-6 border ${cardBgClass} ${borderClass}`}
         >
           <h3 className={`text-lg font-semibold mb-4 ${textClass}`}>
             Weekly Completion
           </h3>
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={weeklyData}>
@@ -90,12 +121,17 @@ const Analytics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="completed" fill="#10B981" name="Completed" />
-                <Bar dataKey="missed" fill="#EF4444" name="Missed" />
+                <Bar dataKey="completed" fill="#6EE7B7" name="Completed" />
+                <Bar dataKey="missed" fill="#111111" name="Missed" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
+<<<<<<< HEAD
+        
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Monthly Trend</h3>
+=======
 
         <div
           className={`rounded-lg shadow-md p-6 border ${cardBgClass} ${borderClass}`}
@@ -103,6 +139,7 @@ const Analytics = () => {
           <h3 className={`text-lg font-semibold mb-4 ${textClass}`}>
             Monthly Trend
           </h3>
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={monthlyData}>
@@ -111,12 +148,16 @@ const Analytics = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
+<<<<<<< HEAD
+                <Line type="monotone" dataKey="completion" stroke="#111111" name="Completion %" />
+=======
                 <Line
                   type="monotone"
                   dataKey="completion"
                   stroke="#4F46E5"
                   name="Completion %"
                 />
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -124,12 +165,17 @@ const Analytics = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<<<<<<< HEAD
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Habit Categories</h3>
+=======
         <div
           className={`rounded-lg shadow-md p-6 border ${cardBgClass} ${borderClass}`}
         >
           <h3 className={`text-lg font-semibold mb-4 ${textClass}`}>
             Habit Categories
           </h3>
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -139,17 +185,21 @@ const Analytics = () => {
                   cy="50%"
                   labelLine={false}
                   outerRadius={80}
-                  fill="#8884d8"
+                  fill="#6EE7B7"
                   dataKey="value"
                   label={({ name, percent }) =>
                     `${name}: ${(percent * 100).toFixed(0)}%`
                   }
                 >
                   {categoryData.map((entry, index) => (
+<<<<<<< HEAD
+                    <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#6EE7B7' : '#111111'} />
+=======
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
                     />
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
                   ))}
                 </Pie>
                 <Tooltip />
@@ -157,6 +207,29 @@ const Analytics = () => {
             </ResponsiveContainer>
           </div>
         </div>
+<<<<<<< HEAD
+        
+        <div className="bg-white rounded-lg shadow-md p-6 border border-primary">
+          <h3 className="text-lg font-semibold text-primary mb-4">Insights</h3>
+          <div className="space-y-4">
+            <div className="p-4 bg-green-50 rounded-lg">
+              <h4 className="font-medium text-black">Best Performance</h4>
+              <p className="text-sm text-black mt-1">
+                You complete 90% of your habits on Thursdays. Consider scheduling challenging habits on this day.
+              </p>
+            </div>
+            
+            <div className="p-4 bg-green-100 rounded-lg">
+              <h4 className="font-medium text-black">Needs Attention</h4>
+              <p className="text-sm text-black mt-1">
+                Your weekend habit completion is lower. Try simplifying your weekend routines.
+              </p>
+            </div>
+            
+            <div className="p-4 bg-green-50 rounded-lg">
+              <h4 className="font-medium text-black">Positive Trend</h4>
+              <p className="text-sm text-black mt-1">
+=======
 
         <div
           className={`rounded-lg shadow-md p-6 border ${cardBgClass} ${borderClass}`}
@@ -226,6 +299,7 @@ const Analytics = () => {
                   darkMode ? "text-green-300" : "text-green-600"
                 }`}
               >
+>>>>>>> c08c04586be84b3de270914ebd193bd744356e92
                 Your overall completion rate has improved by 12% this month.
               </p>
             </div>

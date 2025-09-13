@@ -7,12 +7,20 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+<<<<<<< HEAD
     open: true,
     watch: {
       usePolling: false,
     },
     hmr: {
       overlay: false,
+=======
+    open: false,
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+>>>>>>> 0d9d0903bd0f04b19bd22be34b9443474ab3d52d
     },
   },
   build: {

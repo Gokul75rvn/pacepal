@@ -22,15 +22,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-green-600 shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-white font-bold">P</span>
-              </div>
-              <span className="text-xl font-bold text-dark">Pacepal</span>
+              <span className="text-xl font-bold text-white">Zintick</span>
             </Link>
           </div>
 
@@ -86,7 +83,7 @@ const Navbar = () => {
                   <div className="border-t border-gray-200"></div>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="flex items-center w-full px-4 py-2 text-sm text-green-700 hover:bg-green-100"
                   >
                     <FaSignOutAlt className="mr-3" />
                     Logout
