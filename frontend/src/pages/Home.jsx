@@ -1,82 +1,98 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FaCheck, FaChartLine, FaList, FaUserFriends } from 'react-icons/fa'
-import Button from '../components/common/Button'
-import { FaCalendarAlt } from 'react-icons/fa'
+import React, { useContext } from "react";
+import { ThemeContext } from "./Settings";
+import { Link } from "react-router-dom";
+import {
+  FaCheck,
+  FaChartLine,
+  FaList,
+  FaUserFriends,
+  FaRobot,
+} from "react-icons/fa";
+import Button from "../components/common/Button";
+import Chatbot from "../components/features/Chatbot";
 
 const Home = () => {
+  const { theme } = useContext(ThemeContext);
+  const darkMode = theme === "dark";
+  const textClass = darkMode ? "text-white" : "text-dark";
+
   return (
-    <div className="container mx-auto px-4 py-12">
-      <div className="text-center max-w-3xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-bold text-dark mb-6">
-          Build Better Habits with <span className="text-primary">Pacepal</span>
-        </h1>
-        <p className="text-lg text-gray-600 mb-10">
-          Your intelligent habit and routine management platform designed to help you build consistency, 
-          break bad habits, and achieve personal growth.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
-          <Link to="/register">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Get Started
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-              Login
-            </Button>
-          </Link>
+    <div
+      className={`container mx-auto px-4 py-12 relative ${
+        darkMode ? "bg-dark text-white min-h-screen" : ""
+      }`}
+    >
+      {/* Chatbot Corner Button */}
+      <Link to="/chatbot">
+        <div className="fixed bottom-8 right-8 z-50">
+          <Button
+            variant="primary"
+            size="md"
+            className="rounded-full shadow-lg flex items-center gap-2 px-4 py-2"
+          >
+            <FaRobot className="text-xl" /> Chatbot
+          </Button>
         </div>
+      </Link>
+
+      <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-16">
+        <Link to="/register">
+          <h1 className={`text-4xl md:text-5xl font-bold mb-6 ${textClass}`}>
+            Build Better Habits with{" "}
+            <span className="text-primary">Pacepal</span>
+          </h1>
+          <p
+            className={`text-lg mb-10 ${
+              darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            Your intelligent habit and routine management platform designed to
+            help you build consistency, break bad habits, and achieve personal
+            growth.
+          </p>
+        </Link>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <Link to="/habit-tracking" style={{ textDecoration: 'none' }}>
-          <FeatureCard 
-            icon={<FaCheck className="text-2xl" />}
-            title="Habit Tracking"
-            description="Track your daily habits and build consistency with visual progress indicators."
-            clickable
-          />
-        </Link>
-        <Link to="/analytics" style={{ textDecoration: 'none' }}>
-          <FeatureCard 
-            icon={<FaChartLine className="text-2xl" />}
-            title="Analytics"
-            description="Get insights into your habit patterns with detailed analytics and reports."
-            clickable
-          />
-        </Link>
-        <Link to="/routine-builder" style={{ textDecoration: 'none' }}>
-          <FeatureCard 
-            icon={<FaList className="text-2xl" />}
-            title="Routine Builder"
-            description="Create custom routines to streamline your daily activities and maximize productivity."
-            clickable
-          />
-        </Link>
-        <Link to="/habits-schedule" style={{ textDecoration: 'none' }}>
-          <FeatureCard 
-            icon={<FaCalendarAlt className="text-2xl" />}
-            title="All Habits Schedule"
-            description="View and manage all your scheduled habits in one place."
-            clickable
-          />
-        </Link>
-        <Link to="/community" style={{ textDecoration: 'none' }}>
-          <FeatureCard 
-            icon={<FaUserFriends className="text-2xl" />}
-            title="Community"
-            description="Join challenges and share your progress with a supportive community."
-            clickable
-          />
-        </Link>
+        <FeatureCard
+          icon={<FaCheck className="text-2xl" />}
+          title="Habit Tracking"
+          description="Track your daily habits and build consistency with visual progress indicators."
+          darkMode={darkMode}
+          textClass={textClass}
+        />
+        <FeatureCard
+          icon={<FaChartLine className="text-2xl" />}
+          title="Analytics"
+          description="Get insights into your habit patterns with detailed analytics and reports."
+          darkMode={darkMode}
+          textClass={textClass}
+        />
+        <FeatureCard
+          icon={<FaList className="text-2xl" />}
+          title="Routine Builder"
+          description="Create custom routines to streamline your daily activities and maximize productivity."
+          darkMode={darkMode}
+          textClass={textClass}
+        />
+        <FeatureCard
+          icon={<FaUserFriends className="text-2xl" />}
+          title="Community"
+          description="Join challenges and share your progress with a supportive community."
+          darkMode={darkMode}
+          textClass={textClass}
+        />
       </div>
-      
-      <div className="bg-primary rounded-xl p-8 text-white text-center">
+
+      <div
+        className={`rounded-xl p-8 text-center ${
+          darkMode ? "bg-primary text-white" : "bg-primary text-white"
+        }`}
+      >
         <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Habits?</h2>
         <p className="text-lg mb-6 max-w-2xl mx-auto">
-          Join thousands of users who have already improved their lives with Pacepal.
+          Join thousands of users who have already improved their lives with
+          Pacepal.
         </p>
         <Link to="/register">
           <Button variant="secondary" size="lg">
@@ -84,49 +100,27 @@ const Home = () => {
           </Button>
         </Link>
       </div>
-    </div>
-  )
-}
 
-const FeatureCard = ({ icon, title, description, clickable }) => {
+      {/* Chatbot placed horizontally at the bottom */}git status  git status    
+      <Chatbot />
+    </div>
+  );
+};
+
+const FeatureCard = ({ icon, title, description, darkMode, textClass }) => {
   return (
     <div
-      className={`bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-fadein ${clickable ? 'cursor-pointer' : ''}`}
-      style={{
-        animation: 'fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1)',
-        minWidth: 260,
-        maxWidth: 280,
-        minHeight: 320,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: '0 auto'
-      }}
+      className={`rounded-lg shadow-md p-6 border text-center ${
+        darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-200"
+      }`}
     >
-      <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
+      <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
         <div className="text-primary">{icon}</div>
       </div>
-      <h3 className="text-xl font-semibold text-dark mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className={`text-xl font-semibold mb-2 ${textClass}`}>{title}</h3>
+      <p className={darkMode ? "text-gray-300" : "text-gray-600"}>{description}</p>
     </div>
-  )
-}
+  );
+};
 
-// Add fadeInUp and bounce-slow animations
-const style = document.createElement('style');
-style.innerHTML = `
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-fadein { animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1); }
-@keyframes bounceSlow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-.animate-bounce-slow { animation: bounceSlow 2.2s infinite; }
-`;
-document.head.appendChild(style);
-
-export default Home
+export default Home;

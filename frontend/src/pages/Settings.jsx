@@ -1,249 +1,403 @@
-import React, { useState } from 'react'
-import { FaBell, FaLock, FaDatabase, FaPalette, FaQuestionCircle } from 'react-icons/fa'
-import Button from '../components/common/Button'
+import React, { useState, useContext, createContext } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaBell,
+  FaLock,
+  FaStar,
+  FaPalette,
+  FaQuestionCircle,
+  FaVolumeUp,
+  FaUserShield,
+  FaPlane,
+  FaShareAlt,
+  FaInfoCircle,
+  FaEnvelope,
+  FaCog,
+  FaRegCommentDots,
+  FaRegFileAlt,
+} from "react-icons/fa";
+import Button from "../components/common/Button";
+import { Link } from "react-router-dom";
+
+// Theme context for global dark mode
+export const ThemeContext = createContext();
+
+export const ThemeProvider = ({ children }) => {
+  const [theme, setTheme] = useState("light");
+  React.useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
 const Settings = () => {
-  const [activeTab, setActiveTab] = useState('notifications')
+  const navigate = useNavigate();
+  const { theme, setTheme } = useContext(ThemeContext);
+  const [notifications, setNotifications] = useState(true);
+  const [sounds, setSounds] = useState(true);
+  const [vacationMode, setVacationMode] = useState(false);
 
-  const tabs = [
-    { id: 'notifications', label: 'Notifications', icon: <FaBell /> },
-    { id: 'security', label: 'Security', icon: <FaLock /> },
-    { id: 'data', label: 'Data & Privacy', icon: <FaDatabase /> },
-    { id: 'appearance', label: 'Appearance', icon: <FaPalette /> },
-    { id: 'help', label: 'Help & Support', icon: <FaQuestionCircle /> },
-  ]
+  // Sync darkMode toggle with global theme
+  const darkMode = theme === "dark";
+  const handleDarkModeToggle = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  // Share API integration
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "Habit Tracker",
+        text: "Check out this awesome Habit Tracker app!",
+        url: window.location.origin,
+      });
+    } else {
+      alert("Share API not supported on this browser.");
+    }
+  };
+
+  // Modal states
+  const [showRateModal, setShowRateModal] = useState(false);
+  const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showVacationModal, setShowVacationModal] = useState(false);
+  const [showSecurityModal, setShowSecurityModal] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [rateSubmitted, setRateSubmitted] = useState(false);
+
+  // Settings items
+  const iconColor = darkMode ? "#fff" : "#000";
+  const settingsItems = [
+    {
+      label: "Dark Mode",
+      icon: <FaPalette className="mr-2" color={iconColor} />,
+      type: "toggle",
+      value: darkMode,
+      onToggle: handleDarkModeToggle,
+    },
+    {
+      label: "Security",
+      icon: <FaUserShield className="mr-2" color={iconColor} />,
+      type: "button",
+      onClick: () => setShowSecurityModal(true),
+    },
+    {
+      label: "Notifications",
+      icon: <FaBell className="mr-2" color={iconColor} />,
+      type: "toggle",
+      value: notifications,
+      onToggle: () => setNotifications((v) => !v),
+    },
+    {
+      label: "Sounds",
+      icon: <FaVolumeUp className="mr-2" color={iconColor} />,
+      type: "toggle",
+      value: sounds,
+      onToggle: () => setSounds((v) => !v),
+    },
+    {
+      label: "Vacation Mode",
+      icon: <FaPlane className="mr-2" color={iconColor} />,
+      type: "toggle",
+      value: vacationMode,
+      onToggle: () => setShowVacationModal(true),
+    },
+    {
+      label: "Rate Routiner",
+      icon: <FaStar className="mr-2" color={iconColor} />,
+      type: "button",
+      onClick: () => setShowRateModal(true),
+    },
+    {
+      label: "Share with Friends",
+      icon: <FaShareAlt className="mr-2" color={iconColor} />,
+      type: "button",
+      onClick: handleShare,
+    },
+    {
+      label: "About Us",
+      icon: <FaInfoCircle className="mr-2" color={iconColor} />,
+      type: "button",
+      onClick: () => setShowAboutModal(true),
+    },
+    {
+      label: "Support",
+      icon: <FaRegCommentDots className="mr-2" color={iconColor} />,
+      type: "button",
+      onClick: () => navigate("/chatbot"),
+    },
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-dark mb-8">Settings</h1>
-      
-      <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-64 mb-6 md:mb-0">
-          <div className="bg-white rounded-lg shadow-md border border-gray-200">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                className={`flex items-center w-full px-4 py-3 text-left ${
-                  activeTab === tab.id 
-                    ? 'bg-primary text-white' 
-                    : 'text-gray-700 hover:bg-gray-100'
+    <div
+      className={`min-h-screen transition-colors duration-500 ${
+        darkMode ? "bg-black" : "bg-white"
+      }`}
+    >
+      <div className="flex items-center px-8 pt-8">
+        <button
+          className={`rounded-full p-2 shadow ${
+            darkMode ? "bg-black" : "bg-white"
+          }`}
+          aria-label="Back"
+          onClick={() => navigate(-1)}
+        >
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke={iconColor}
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+      </div>
+      <div className="max-w-5xl mx-auto px-4 py-8">
+        <h1
+          className={`text-2xl font-bold mb-8 ${
+            darkMode ? "text-white" : "text-black"
+          }`}
+        >
+          Settings
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {settingsItems.map((item) => (
+            <div
+              key={item.label}
+              className={`rounded-lg flex items-center justify-between px-6 py-4 shadow transition-colors duration-500 cursor-pointer ${
+                darkMode ? "bg-white" : "bg-white"
+              } hover:bg-gray-100`}
+              onClick={item.type === "button" ? item.onClick : undefined}
+            >
+              <div className="flex items-center">
+                {item.icon}
+                <span
+                  className={`font-medium ${
+                    darkMode ? "text-black" : "text-black"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </div>
+              {item.type === "toggle" ? (
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={item.value}
+                    onChange={item.onToggle}
+                    className="sr-only peer"
+                  />
+                  <div
+                    className={`w-11 h-6 rounded-full peer-focus:outline-none peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500 transition-colors duration-300 ${
+                      darkMode ? "bg-gray-200" : "bg-gray-200"
+                    }`}
+                  ></div>
+                </label>
+              ) : (
+                <svg
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Rate Routiner Modal */}
+      {showRateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div
+            className={`rounded-lg p-8 w-full max-w-md mx-auto shadow-lg ${
+              darkMode ? "bg-black" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-xl font-bold mb-4 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
+            >
+              Rate Routiner
+            </h2>
+            {!rateSubmitted ? (
+              <>
+                <div className="flex justify-center mb-4">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <span
+                      key={star}
+                      onClick={() => setRating(star)}
+                      onMouseEnter={() => setRating(star)}
+                      onMouseLeave={() => setRating(rating)}
+                      className={`cursor-pointer text-3xl transition-colors duration-200 ${
+                        star <= rating
+                          ? "text-yellow-400"
+                          : darkMode
+                          ? "text-gray-700"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+                <Button
+                  variant="primary"
+                  className="w-full"
+                  onClick={() => setRateSubmitted(true)}
+                >
+                  Submit
+                </Button>
+              </>
+            ) : (
+              <div
+                className={`text-center font-semibold ${
+                  darkMode ? "text-green-400" : "text-green-600"
                 }`}
-                onClick={() => setActiveTab(tab.id)}
               >
-                <span className="mr-3">{tab.icon}</span>
-                {tab.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        
-        <div className="flex-grow md:ml-6">
-          <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
-            {activeTab === 'notifications' && <NotificationsSettings />}
-            {activeTab === 'security' && <SecuritySettings />}
-            {activeTab === 'data' && <DataSettings />}
-            {activeTab === 'appearance' && <AppearanceSettings />}
-            {activeTab === 'help' && <HelpSettings />}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const NotificationsSettings = () => {
-  const [emailNotifications, setEmailNotifications] = useState(true)
-  const [pushNotifications, setPushNotifications] = useState(true)
-  const [reminderTime, setReminderTime] = useState('09:00')
-
-  return (
-    <div>
-      <h2 className="text-xl font-semibold text-dark mb-6">Notification Settings</h2>
-      
-      <div className="space-y-6">
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-          <div>
-            <h3 className="font-medium">Email Notifications</h3>
-            <p className="text-sm text-gray-600">Receive email updates about your habits and progress</p>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={emailNotifications}
-              onChange={() => setEmailNotifications(!emailNotifications)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-        
-        <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-          <div>
-            <h3 className="font-medium">Push Notifications</h3>
-            <p className="text-sm text-gray-600">Get reminders on your devices</p>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={pushNotifications}
-              onChange={() => setPushNotifications(!pushNotifications)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Daily Reminder Time</h3>
-          <div className="flex items-center">
-            <input
-              type="time"
-              value={reminderTime}
-              onChange={(e) => setReminderTime(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <span className="ml-3 text-gray-600">Local time</span>
-          </div>
-        </div>
-        
-        <div className="flex justify-end">
-          <Button variant="primary">Save Changes</Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const SecuritySettings = () => {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold text-dark mb-6">Security Settings</h2>
-      
-      <div className="space-y-6">
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Password</h3>
-          <p className="text-sm text-gray-600 mb-4">Last changed 3 months ago</p>
-          <Button variant="outline">Change Password</Button>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Two-Factor Authentication</h3>
-          <p className="text-sm text-gray-600 mb-4">Add an extra layer of security to your account</p>
-          <Button variant="outline">Enable 2FA</Button>
-        </div>
-        
-        <div className="p-4 bg-red-50 rounded-lg">
-          <h3 className="font-medium text-red-800 mb-2">Deactivate Account</h3>
-          <p className="text-sm text-red-600 mb-4">
-            Temporarily disable your account. You can reactivate it later by logging in.
-          </p>
-          <Button variant="danger">Deactivate Account</Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const DataSettings = () => {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold text-dark mb-6">Data & Privacy</h2>
-      
-      <div className="space-y-6">
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Download Your Data</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Get a copy of all your habit data and activity history
-          </p>
-          <Button variant="outline">Download Data</Button>
-        </div>
-        
-        <div className="p-4 bg-red-50 rounded-lg">
-          <h3 className="font-medium text-red-800 mb-2">Delete Account</h3>
-          <p className="text-sm text-red-600 mb-4">
-            Permanently delete your account and all associated data
-          </p>
-          <Button variant="danger">Delete Account</Button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-const AppearanceSettings = () => {
-  const [theme, setTheme] = useState('light')
-  const [accentColor, setAccentColor] = useState('blue')
-
-  return (
-    <div>
-      <h2 className="text-xl font-semibold text-dark mb-6">Appearance</h2>
-      
-      <div className="space-y-6">
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-4">Theme</h3>
-          <div className="grid grid-cols-3 gap-4">
-            <div 
-              className={`border-2 rounded-lg p-4 cursor-pointer ${theme === 'light' ? 'border-primary' : 'border-gray-300'}`}
-              onClick={() => setTheme('light')}
+                Thank you for your feedback!
+              </div>
+            )}
+            <Button
+              variant="outline"
+              className="mt-4 w-full"
+              onClick={() => {
+                setShowRateModal(false);
+                setRateSubmitted(false);
+                setRating(0);
+              }}
             >
-              <div className="h-16 bg-white rounded mb-2"></div>
-              <p className="text-center">Light</p>
-            </div>
-            <div 
-              className={`border-2 rounded-lg p-4 cursor-pointer ${theme === 'dark' ? 'border-primary' : 'border-gray-300'}`}
-              onClick={() => setTheme('dark')}
-            >
-              <div className="h-16 bg-gray-800 rounded mb-2"></div>
-              <p className="text-center">Dark</p>
-            </div>
-            <div 
-              className={`border-2 rounded-lg p-4 cursor-pointer ${theme === 'system' ? 'border-primary' : 'border-gray-300'}`}
-              onClick={() => setTheme('system')}
-            >
-              <div className="h-16 bg-gradient-to-r from-white to-gray-800 rounded mb-2"></div>
-              <p className="text-center">System</p>
-            </div>
+              Close
+            </Button>
           </div>
         </div>
-        
-        <div className="flex justify-end">
-          <Button variant="primary">Save Changes</Button>
-        </div>
-      </div>
-    </div>
-  )
-}
+      )}
 
-const HelpSettings = () => {
-  return (
-    <div>
-      <h2 className="text-xl font-semibold text-dark mb-6">Help & Support</h2>
-      
-      <div className="space-y-6">
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">Contact Support</h3>
-          <p className="text-sm text-gray-600 mb-4">
-            Can't find what you're looking for? Our support team is here to help.
-          </p>
-          <Button variant="outline">Contact Support</Button>
-        </div>
-        
-        <div className="p-4 bg-gray-50 rounded-lg">
-          <h3 className="font-medium mb-2">App Information</h3>
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <span className="text-gray-600">Version</span>
-              <span>1.2.0</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-600">Last Updated</span>
-              <span>Nov 15, 2023</span>
-            </div>
+      {/* About Us Modal */}
+      {showAboutModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div
+            className={`rounded-lg p-8 w-full max-w-md mx-auto shadow-lg ${
+              darkMode ? "bg-black" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-xl font-bold mb-4 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
+            >
+              About This Project
+            </h2>
+            <p className={`mb-4 ${darkMode ? "text-white" : "text-black"}`}>
+              This Habit Tracker project was created to help users build and
+              maintain healthy routines. Built with the MERN stack (MongoDB,
+              Express, React, Node.js), it features real-time habit tracking,
+              analytics, and a modern responsive UI.
+            </p>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => setShowAboutModal(false)}
+            >
+              Close
+            </Button>
           </div>
         </div>
-      </div>
-    </div>
-  )
-}
+      )}
 
-export default Settings
+      {/* Vacation Mode Modal */}
+      {showVacationModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div
+            className={`rounded-lg p-8 w-full max-w-md mx-auto shadow-lg ${
+              darkMode ? "bg-black" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-xl font-bold mb-4 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
+            >
+              Vacation Mode
+            </h2>
+            <p className={`mb-4 ${darkMode ? "text-white" : "text-black"}`}>
+              Vacation Mode lets you pause your habit streaks and reminders
+              while you’re away. Enable it to stop notifications and streak loss
+              until you return.
+            </p>
+            <Button
+              variant="primary"
+              className="w-full mb-2"
+              onClick={() => {
+                setVacationMode((v) => !v);
+                setShowVacationModal(false);
+              }}
+            >
+              {vacationMode ? "Disable" : "Enable"} Vacation Mode
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => setShowVacationModal(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Security Modal */}
+      {showSecurityModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div
+            className={`rounded-lg p-8 w-full max-w-md mx-auto shadow-lg ${
+              darkMode ? "bg-black" : "bg-white"
+            }`}
+          >
+            <h2
+              className={`text-xl font-bold mb-4 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
+            >
+              Security Features
+            </h2>
+            <ul
+              className={`mb-4 list-disc pl-5 ${
+                darkMode ? "text-white" : "text-black"
+              }`}
+            >
+              <li>OAuth 2.0 Authentication (used by Google, Facebook)</li>
+              <li>Two-Factor Authentication (used by banking apps)</li>
+              <li>Data Encryption (used by Dropbox, Slack)</li>
+              <li>Role-based Access Control (used by enterprise apps)</li>
+              <li>Session Management & Expiry</li>
+            </ul>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => setShowSecurityModal(false)}
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Settings;

@@ -1,3 +1,4 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Routes, Route } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import MainLayout from './layouts/MainLayout'
@@ -5,6 +6,10 @@ import AddSchedule from './pages/AddSchedule'
 import AllHabitsSchedule from './pages/AllHabitsSchedule'
 import AuthLayout from './layouts/AuthLayout'
 import Home from './pages/Home'
+import Before from './pages/before'
+import LogoPage from './pages/LogoPage'
+import SignInPage from './pages/SignInPage'
+import VerifyEmailPage from './pages/VerifyEmailPage'
 import Community from './pages/Community'
 import CommunityFriends from './pages/CommunityFriends'
 import CommunityChallenges from './pages/CommunityChallenges'
@@ -30,11 +35,69 @@ import RoutineList from './pages/RoutineList'
           </ProtectedRoute>
         } />
 import ProtectedRoute from './components/common/ProtectedRoute'
+import Community from './pages/Community'
+import Notifications from './pages/Notifications'
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
+    <Routes>
+      {/* Splash / Landing - no Navbar */}
+      <Route path="/" element={<LogoPage />} />
+
+      {/* Auth pages - no Navbar */}
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/verify-email" element={<VerifyEmailPage />} />
+      <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
+      <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
+
+      {/* Home pages */}
+      <Route path="/before" element={<Before />} />
+      <Route path="/home" element={<MainLayout><Home /></MainLayout>} />
+      <Route path="/community" element={<MainLayout><Community /></MainLayout>} />
+      <Route path="/notifications" element={
+        <ProtectedRoute>
+          <MainLayout><Notifications /></MainLayout>
+        </ProtectedRoute>
+      } />
+      {/* Home1 route removed - file does not exist */}
+
+      {/* Protected pages with Navbar */}
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <MainLayout><Dashboard /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/habits" element={
+        <ProtectedRoute>
+          <MainLayout><Habits /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/routines" element={
+        <ProtectedRoute>
+          <MainLayout><Routines /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/analytics" element={
+        <ProtectedRoute>
+          <MainLayout><Analytics /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/profile" element={
+        <ProtectedRoute>
+          <MainLayout><Profile /></MainLayout>
+        </ProtectedRoute>
+      } />
+      <Route path="/settings" element={
+        <ProtectedRoute>
+          <MainLayout><Settings /></MainLayout>
+        </ProtectedRoute>
+      } />
+
+      {/* Redirect unknown routes */}
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/" element={<MainLayout><Home /></MainLayout>} />

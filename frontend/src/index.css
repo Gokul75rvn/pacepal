@@ -3,9 +3,11 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @import "./styles/tailwind.css";
 
+
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #f9fafb;
+  background-color: #fff;
+  color: #065F46;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

@@ -11,6 +11,7 @@ const Footer = () => {
               <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-xs">P</span>
               </div>
+              <span className="text-xl font-bold">Zintick</span>
               <span className="text-base font-bold">Pacepal</span>
             </div>
             <p className="mt-1 text-gray-400 text-xs">Your intelligent habit tracker</p>

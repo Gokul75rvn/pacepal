@@ -38,54 +38,86 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+
+
 /* Button styles */
 .btn-primary {
-  background-color: #4F46E5;
-  border-color: #4F46E5;
+  background-color: #6EE7B7;
+  border-color: #6EE7B7;
+  color: #111;
 }
 
 .btn-primary:hover {
-  background-color: #4338CA;
-  border-color: #4338CA;
+  background-color: #bbf7d0;
+  border-color: #bbf7d0;
+  color: #111;
 }
 
 .btn-outline-primary {
-  color: #4F46E5;
-  border-color: #4F46E5;
+  color: #111;
+  border-color: #6EE7B7;
 }
 
 .btn-outline-primary:hover {
-  background-color: #4F46E5;
-  border-color: #4F46E5;
+  background-color: #6EE7B7;
+  border-color: #111;
+  color: #111;
 }
 
 /* Form styles */
 .form-control:focus {
-  border-color: #4F46E5;
-  box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+  border-color: #6EE7B7;
+  box-shadow: 0 0 0 0.2rem rgba(16, 185, 129, 0.25);
 }
 
 /* Progress bar */
 .progress {
   height: 8px;
+  background-color: #A7F3D0;
 }
 
 /* Badge styles */
 .badge-primary {
-  background-color: #4F46E5;
+  background-color: #6EE7B7;
+  color: #065F46;
 }
+
 
 /* Utility classes */
 .text-primary {
-  color: #4F46E5 !important;
+  color: #6EE7B7 !important;
 }
 
 .bg-primary {
-  background-color: #4F46E5 !important;
+  background-color: #6EE7B7 !important;
 }
 
 .border-primary {
-  border-color: #4F46E5 !important;
+  border-color: #6EE7B7 !important;
+}
+
+.text-black {
+  color: #111 !important;
+}
+
+.bg-black {
+  background-color: #111 !important;
+}
+
+.border-black {
+  border-color: #111 !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.border-white {
+  border-color: #fff !important;
 }
 
 /* Dark mode styles */
