@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { FaCheck, FaChartLine, FaList, FaUserFriends } from 'react-icons/fa'
 import Button from '../components/common/Button'
+import { FaCalendarAlt } from 'react-icons/fa'
 
 const Home = () => {
   return (
@@ -30,11 +31,14 @@ const Home = () => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        <FeatureCard 
-          icon={<FaCheck className="text-2xl" />}
-          title="Habit Tracking"
-          description="Track your daily habits and build consistency with visual progress indicators."
-        />
+        <Link to="/habit-tracking" style={{ textDecoration: 'none' }}>
+          <FeatureCard 
+            icon={<FaCheck className="text-2xl" />}
+            title="Habit Tracking"
+            description="Track your daily habits and build consistency with visual progress indicators."
+            clickable
+          />
+        </Link>
         <Link to="/analytics" style={{ textDecoration: 'none' }}>
           <FeatureCard 
             icon={<FaChartLine className="text-2xl" />}
@@ -43,11 +47,22 @@ const Home = () => {
             clickable
           />
         </Link>
-        <FeatureCard 
-          icon={<FaList className="text-2xl" />}
-          title="Routine Builder"
-          description="Create custom routines to streamline your daily activities and maximize productivity."
-        />
+        <Link to="/routine-builder" style={{ textDecoration: 'none' }}>
+          <FeatureCard 
+            icon={<FaList className="text-2xl" />}
+            title="Routine Builder"
+            description="Create custom routines to streamline your daily activities and maximize productivity."
+            clickable
+          />
+        </Link>
+        <Link to="/habits-schedule" style={{ textDecoration: 'none' }}>
+          <FeatureCard 
+            icon={<FaCalendarAlt className="text-2xl" />}
+            title="All Habits Schedule"
+            description="View and manage all your scheduled habits in one place."
+            clickable
+          />
+        </Link>
         <Link to="/community" style={{ textDecoration: 'none' }}>
           <FeatureCard 
             icon={<FaUserFriends className="text-2xl" />}
@@ -77,7 +92,17 @@ const FeatureCard = ({ icon, title, description, clickable }) => {
   return (
     <div
       className={`bg-white rounded-lg shadow-md p-6 border border-gray-200 text-center transform transition duration-300 hover:scale-105 hover:shadow-xl animate-fadein ${clickable ? 'cursor-pointer' : ''}`}
-      style={{ animation: 'fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1)' }}
+      style={{
+        animation: 'fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1)',
+        minWidth: 260,
+        maxWidth: 280,
+        minHeight: 320,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        margin: '0 auto'
+      }}
     >
       <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4 animate-bounce-slow">
         <div className="text-primary">{icon}</div>
