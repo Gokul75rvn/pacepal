@@ -42,68 +42,29 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Routes>
-      {/* Splash / Landing - no Navbar */}
-      <Route path="/" element={<LogoPage />} />
-
-      {/* Auth pages - no Navbar */}
-      <Route path="/signin" element={<SignInPage />} />
-      <Route path="/verify-email" element={<VerifyEmailPage />} />
-      <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
-      <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
-
-      {/* Home pages */}
-      <Route path="/before" element={<Before />} />
-      <Route path="/home" element={<MainLayout><Home /></MainLayout>} />
-      <Route path="/community" element={<MainLayout><Community /></MainLayout>} />
-      <Route path="/notifications" element={
-        <ProtectedRoute>
-          <MainLayout><Notifications /></MainLayout>
-        </ProtectedRoute>
-      } />
-      {/* Home1 route removed - file does not exist */}
-
-      {/* Protected pages with Navbar */}
-      <Route path="/dashboard" element={
-        <ProtectedRoute>
-          <MainLayout><Dashboard /></MainLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/habits" element={
-        <ProtectedRoute>
-          <MainLayout><Habits /></MainLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/routines" element={
-        <ProtectedRoute>
-          <MainLayout><Routines /></MainLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/analytics" element={
-        <ProtectedRoute>
-          <MainLayout><Analytics /></MainLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/profile" element={
-        <ProtectedRoute>
-          <MainLayout><Profile /></MainLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/settings" element={
-        <ProtectedRoute>
-          <MainLayout><Settings /></MainLayout>
-        </ProtectedRoute>
-      } />
-
-      {/* Redirect unknown routes */}
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+        {/* Splash / Landing - no Navbar */}
+        <Route path="/" element={<LogoPage />} />
+
+        {/* Auth pages - no Navbar */}
+        <Route path="/signin" element={<SignInPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
         <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
 
+        {/* Home pages */}
+        <Route path="/before" element={<Before />} />
+        <Route path="/home" element={<MainLayout><Home /></MainLayout>} />
+        <Route path="/community" element={<MainLayout><Community /></MainLayout>} />
+        <Route path="/notifications" element={
+          <ProtectedRoute>
+            <MainLayout><Notifications /></MainLayout>
+          </ProtectedRoute>
+        } />
+        {/* Home1 route removed - file does not exist */}
+
+        {/* Protected pages with Navbar */}
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <MainLayout><Dashboard /></MainLayout>
@@ -122,6 +83,16 @@ function App() {
         <Route path="/analytics" element={
           <ProtectedRoute>
             <MainLayout><Analytics /></MainLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <MainLayout><Profile /></MainLayout>
+          </ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <MainLayout><Settings /></MainLayout>
           </ProtectedRoute>
         } />
         <Route path="/habits-schedule" element={
@@ -154,18 +125,21 @@ function App() {
             <MainLayout><Settings /></MainLayout>
           </ProtectedRoute>
         } />
-  <Route path="/community" element={<MainLayout><Community /></MainLayout>} />
-  <Route path="/community/friends" element={<MainLayout><CommunityFriends /></MainLayout>} />
-  <Route path="/community/challenges" element={<MainLayout><CommunityChallenges /></MainLayout>} />
-  <Route path="/community/discussions" element={<MainLayout><CommunityDiscussions /></MainLayout>} />
-  <Route path="/community/progress" element={<MainLayout><CommunityProgress /></MainLayout>} />
-  <Route path="/community/groups" element={<MainLayout><CommunityGroups /></MainLayout>} />
-  <Route path="/community/join" element={<MainLayout><JoinGroup /></MainLayout>} />
-  <Route path="/schedule-details" element={
-    <ProtectedRoute>
-      <MainLayout><ScheduleDetails /></MainLayout>
-    </ProtectedRoute>
-  } />
+        <Route path="/community" element={<MainLayout><Community /></MainLayout>} />
+        <Route path="/community/friends" element={<MainLayout><CommunityFriends /></MainLayout>} />
+        <Route path="/community/challenges" element={<MainLayout><CommunityChallenges /></MainLayout>} />
+        <Route path="/community/discussions" element={<MainLayout><CommunityDiscussions /></MainLayout>} />
+        <Route path="/community/progress" element={<MainLayout><CommunityProgress /></MainLayout>} />
+        <Route path="/community/groups" element={<MainLayout><CommunityGroups /></MainLayout>} />
+        <Route path="/community/join" element={<MainLayout><JoinGroup /></MainLayout>} />
+        <Route path="/schedule-details" element={
+          <ProtectedRoute>
+            <MainLayout><ScheduleDetails /></MainLayout>
+          </ProtectedRoute>
+        } />
+
+        {/* Redirect unknown routes */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </QueryClientProvider>
   )
