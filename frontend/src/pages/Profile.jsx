@@ -30,9 +30,9 @@ const Profile = () => {
   }
 
   return (
-  <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-dark mb-8">My Profile</h1>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1">
           <div className="bg-white rounded-lg shadow-md p-6 border border-gray-200">
@@ -43,8 +43,8 @@ const Profile = () => {
               <h2 className="text-xl font-semibold text-dark">{user?.name}</h2>
               <p className="text-gray-600">{user?.email}</p>
               <div className="mt-6 w-full">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   className="w-full mb-3"
                   onClick={() => setIsEditing(!isEditing)}
                 >
@@ -167,7 +167,6 @@ const Profile = () => {
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
-                      
                         type="checkbox"
                         name="notifications"
                         checked={formData.notifications}
@@ -210,6 +209,11 @@ const Profile = () => {
                 </div>
               )}
             </form>
-                    </div>
-                  </div>
-                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Profile
