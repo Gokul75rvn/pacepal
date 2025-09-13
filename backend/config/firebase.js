@@ -12,7 +12,7 @@ let adminApp;
 const initializeFirebase = () => {
   try {
     if (!admin.apps.length) {
-      // Try to read the service account file
+      // Read the service account file
       const serviceAccountPath = join(__dirname, 'serviceAccountKey.json');
       const serviceAccount = JSON.parse(readFileSync(serviceAccountPath, 'utf8'));
       
@@ -36,4 +36,4 @@ const initializeFirebase = () => {
 const firebase = initializeFirebase();
 auth = firebase.auth;
 
-export { auth, admin as adminApp };
+export { auth, adminApp as admin };

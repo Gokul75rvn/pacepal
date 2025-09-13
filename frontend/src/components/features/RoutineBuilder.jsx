@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import { FaPlus, FaTrash, FaClock } from 'react-icons/fa'
+import { FaPlus, FaTrash, FaArrowUp, FaArrowDown } from 'react-icons/fa'
 import Button from '../common/Button'
 import Input from '../common/Input'
 
@@ -13,14 +13,14 @@ const RoutineBuilder = () => {
   ])
   const [newHabit, setNewHabit] = useState({ name: '', duration: 10 })
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return
-
-    const items = Array.from(habits)
-    const [reorderedItem] = items.splice(result.source.index, 1)
-    items.splice(result.destination.index, 0, reorderedItem)
-
-    setHabits(items)
+  const moveHabit = (index, direction) => {
+    const newHabits = [...habits]
+    if (direction === 'up' && index > 0) {
+      [newHabits[index - 1], newHabits[index]] = [newHabits[index], newHabits[index - 1]]
+    } else if (direction === 'down' && index < habits.length - 1) {
+      [newHabits[index], newHabits[index + 1]] = [newHabits[index + 1], newHabits[index]]
+    }
+    setHabits(newHabits)
   }
 
   const addHabit = () => {
@@ -72,7 +72,15 @@ const RoutineBuilder = () => {
       
       <div className="mb-6">
         <h4 className="text-md font-medium text-dark mb-3">Routine Habits</h4>
-        <DragDropContext onDragEnd={handleDragEnd}>
+        <DragDropContext onDragEnd={(result) => {
+          if (!result.destination) return
+
+          const items = Array.from(habits)
+          const [reorderedItem] = items.splice(result.source.index, 1)
+          items.splice(result.destination.index, 0, reorderedItem)
+
+          setHabits(items)
+        }}>
           <Droppable droppableId="habits">
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -95,13 +103,31 @@ const RoutineBuilder = () => {
                             </div>
                           </div>
                         </div>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => removeHabit(habit.id)}
-                        >
-                          <FaTrash className="text-red-500" />
-                        </Button>
+                        <div className="flex items-center space-x-2">
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => moveHabit(index, 'up')}
+                            disabled={index === 0}
+                          >
+                            <FaArrowUp />
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => moveHabit(index, 'down')}
+                            disabled={index === habits.length - 1}
+                          >
+                            <FaArrowDown />
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => removeHabit(habit.id)}
+                          >
+                            <FaTrash className="text-red-500" />
+                          </Button>
+                        </div>
                       </div>
                     )}
                   </Draggable>
